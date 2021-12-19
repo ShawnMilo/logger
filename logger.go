@@ -174,5 +174,3 @@ func (l Logger) Error(message string) {
 func (l Logger) Errorf(message string, args ...interface{}) {
 	l.Error(fmt.Sprintf(message, args...))
 }
-
-// last audit 2020-01-21 skm
