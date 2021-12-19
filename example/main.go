@@ -22,4 +22,10 @@ func stuff(ctx context.Context) {
 	lg.Info("thing message")
 	userID := lg.ValueString("user_id")
 	fmt.Printf("user_id: %s\n", userID)
+	crash(ctx)
+}
+
+func crash(ctx context.Context) {
+	lg := logger.FromContext(ctx)
+	lg.Error("broken")
 }

@@ -6,6 +6,8 @@ It uses a `context.Context` to store values which will then be logged along with
 
 It is possible to recover these values but this should not be used to pass arguments into functions. Do not use this to pass required arguments.
 
+Using `Error` or `Errorf` will also log a stack trace to help you easily find the source of the error.
+
 ## Usage
 
 The API is very small.
@@ -41,14 +43,21 @@ func stuff(ctx context.Context) {
 	lg.Info("thing message")
 	userID := lg.ValueString("user_id")
 	fmt.Printf("user_id: %s\n", userID)
+	crash(ctx)
+}
+
+func crash(ctx context.Context) {
+	lg := logger.FromContext(ctx)
+	lg.Error("broken")
 }
 ```
 
 **Output**:
 
 ```
-{"level":"INFO","event_time":"2021-12-19T03:16:16Z","message":"first message"}
-{"level":"INFO","event_time":"2021-12-19T03:16:16Z","message":"second message","tags":{"user_id":"123"}}
-{"level":"INFO","event_time":"2021-12-19T03:16:16Z","message":"thing message","tags":{"function":"stuff","user_id":"123"}}
+{"level":"INFO","event_time":"2021-12-19T03:26:15Z","message":"first message"}
+{"level":"INFO","event_time":"2021-12-19T03:26:15Z","message":"second message","tags":{"user_id":"123"}}
+{"level":"INFO","event_time":"2021-12-19T03:26:15Z","message":"thing message","tags":{"function":"stuff","user_id":"123"}}
 user_id: 123
+{"level":"ERROR","event_time":"2021-12-19T03:26:15Z","message":"broken","trace":"main.go:main.crash:30, main.go:main.stuff:25, main.go:main.main:16, proc.go:runtime.main:255","tags":{"function":"stuff","user_id":"123"}}
 ```
