@@ -11,9 +11,10 @@ It is possible to recover these values but this should not be used to pass argum
 The API is very small.
 
 1. Create a logger with `logger.New()`
-2. Log using `Debug`, `Info`, `Error`, `Debugf`, `Infof`, or `Errorf`
-3. As desired, use `With` to add a value to the loggers "tags"
-4. Recover a value from the tags using `ValueString`
+1. Call `SetDebug(bool)` to enable debug logging, or use the `DEBUG` environment variable
+1. Log using `Debug`, `Info`, `Error`, `Debugf`, `Infof`, or `Errorf`
+1. (Optional) As desired, use `With` to add a value to the loggers "tags"
+1. (Optional) Recover a value from the tags using `ValueString`
 
 ```go
 package main
