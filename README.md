@@ -40,6 +40,7 @@ func stuff(ctx context.Context) {
 	ctx = lg.With(ctx, "function", "stuff")
 	lg.Info("thing message")
 	userID := lg.ValueString("user_id")
+	fmt.Printf("user_id: %s\n", userID)
 }
 ```
 
