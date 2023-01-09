@@ -89,6 +89,7 @@ func stack() string {
 func (l *Logger) With(ctx context.Context, k string, v interface{}) context.Context {
 	// Add tag to logger.
 	l.tags[tag(k)] = v
+	ctx = context.WithValue(ctx, k, v)
 
 	// Add value to context.
 	tags := make([]tag, 0, len(l.tags))
